@@ -3,8 +3,11 @@ import pyaudio
 import queue
 import base64
 import os
+import io
 
-SYS_BEEP_PATH = os.path.join(os.getcwd(),"assets/beepbeep.wav")
+#os.chdir("/home/pi/rpi-voice-assistant")
+#SYS_BEEP_PATH = os.path.join(os.getcwd(),"assets/beepbeep.wav")
+SYS_BEEP_PATH = "assets/beepbeep.wav"
 
 class MicrophoneStream(object):
     """Opens a recording stream as a generator yielding the audio chunks."""
@@ -114,11 +117,15 @@ def process(responses):
 
 # Play audio/mpeg MIME content
 def play(encoding_str):
-    filename = '/tmp/response.mp3'
+    filename =  '/tmp/response.mp3'
     decode_bytes = base64.b64decode(encoding_str.split("data:audio/mpeg;base64,",1)[1])
     with open(filename, "wb") as wav_file:
         wav_file.write(decode_bytes)
     mp3_play(filename)
+
+# Play audio/mpeg MIME content
+def playUrl(url_str):
+    os.system('curl ' + url_str + '| mpg123 ->/dev/null 2>&1')
 
 # Text-to-speech using Google TTS
 def speak(text):
