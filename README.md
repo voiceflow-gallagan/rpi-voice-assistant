@@ -38,10 +38,23 @@ To run the application, you must specify the following in the `config.yaml`:
 | vf_VersionID | The Voiceflow runnable version ID of your target skill |
 | vf_APIKey | The Voiceflow project API key |
 | wakeword | A list of `porcupine`-supported wake word(s) that can be used to invoke the system |
-| accesskey | You Porcupine access key available [here](https://console.picovoice.ai/) |
+| accesskey | You Porcupine access key available [here](https://picovoice.ai/docs/quick-start/console-access-key/) |
 
 ## Usage
 Run
 ```bash
 ./start.sh
 ```
+
+### Extra
+If you want to auto start the script on boot, edit your `.bashrc` file and add this to the bottom:
+```bash
+# Launching VF Assistant
+cd rpi-voice-assistant
+bash start.sh
+```
+
+To use your own custom wakeword, you can create one from the [Procupine Console](https://console.picovoice.ai) and uncomment the script in `main.py`
+
+
+
